@@ -1,6 +1,5 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import sys
 #initialize data variables
 denoised_data = pd.read_csv('Data/SG_denoised_W99D5_rmsd-tph.csv')
 x_data = denoised_data.iloc[:,1:len(denoised_data.columns)-1].values
