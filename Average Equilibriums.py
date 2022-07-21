@@ -1,6 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
+from scipy.optimize import curve_fit
+import numpy as np
 #initialize data variables
 denoised_data = pd.read_csv('Data/SG_denoised_W99D5_rmsd-tph.csv')
 x_data = denoised_data.iloc[:,1:len(denoised_data.columns)-1].values
@@ -63,3 +65,24 @@ plt.xlabel('pH')
 plt.ylabel('Average RMSD (nm)')
 threeDax.set_zlabel('Temperature (\u00B0C)') 
 plt.show()
+#fit curve to data 
+popt, pcov = curve_fit(lambda t, a, b, c: a * np.exp(b * t) + c, temperature, mean_ys, p0=(-0.1, -0.01, 0.5), bounds=((-1, -np.inf, 0), (0, -0.000001, 1)), maxfev = 1000)
+a = float(popt[0])
+b = float(popt[1])
+c = float(popt[2])
+
+
+
+# equation = 'y = ' + a + b + '^' + t + ' + ' + c
+# show curve
+# threeDax.plot3D(xline, yline, zline, 'gray')
+
+# def fitCurve(temp, , b, c):
+#   x,y = X
+#   return np.log(a) + b*np.log(x) + c*np.log(y)
+# x = np.linspace(pH)
+# y = np.linspace(mean_ys)
+# a, b, c = 10., 4., 6.
+# z = fitCurve((x,y), a, b, c) * 1 + np.random.random(101) / 100
+# p0 = 8., 2., 7.
+# print(curve_fit(fitCurve, (x,y), z, p0))
