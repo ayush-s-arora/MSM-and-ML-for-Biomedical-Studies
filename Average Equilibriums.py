@@ -61,6 +61,7 @@ threeDDataFrame = pd.DataFrame({'pH':pH, 'AverageRMSD':mean_ys, 'Temperature':te
 threeD = plt.figure()
 threeDax = threeD.add_subplot(111, projection='3d')
 threeDScatter = threeDax.scatter(threeDDataFrame.pH, threeDDataFrame.AverageRMSD, threeDDataFrame.Temperature, s=100)
+plt.title('3D Relationship Between Average RMSD, pH, and Temperature')
 plt.xlabel('pH')
 plt.ylabel('Average RMSD (nm)')
 threeDax.set_zlabel('Temperature (\u00B0C)') 
