@@ -1,10 +1,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 #initialize data variables
 denoised_data = pd.read_csv('Data/SG_denoised_W99D5_rmsd-tph.csv')
 x_data = denoised_data.iloc[:,1:len(denoised_data.columns)-1].values
 y_data = denoised_data.iloc[:,len(denoised_data.columns)-1].values
 mean_ys = []
+pH = [1,2,3,4,5,1,2,3,4,5,1,2,3,4,5]
+temperature = [3,3,3,3,3,20,20,20,20,20,37,37,37,37,37]
 #experimental temperature values
 temp1 = 3
 temp2 = 20
@@ -50,4 +53,13 @@ plt.title('Average RMSD vs pH at Varying Temperatures')
 plt.xlabel('pH')
 plt.ylabel('Average RMSD (nm)')
 scatterPlot.legend()
+plt.show()
+# graph 5 for a 3 dimensional relation between pH temp and RMSD
+threeDDataFrame = pd.DataFrame({'pH':pH, 'AverageRMSD':mean_ys, 'Temperature':temperature})
+threeD = plt.figure()
+threeDax = threeD.add_subplot(111, projection='3d')
+threeDScatter = threeDax.scatter(threeDDataFrame.pH, threeDDataFrame.AverageRMSD, threeDDataFrame.Temperature, s=100)
+plt.xlabel('pH')
+plt.ylabel('Average RMSD (nm)')
+threeDax.set_zlabel('Temperature (\u00B0C)') 
 plt.show()
