@@ -3,26 +3,26 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from scipy.optimize import curve_fit
 import numpy as np
-#initialize data variables
+# initialize data variables
 denoised_data = pd.read_csv('Data/SG_denoised_W99D5_rmsd-tph.csv')
 x_data = denoised_data.iloc[:,1:len(denoised_data.columns)-1].values
 y_data = denoised_data.iloc[:,len(denoised_data.columns)-1].values
 mean_ys = []
 pH = [1,2,3,4,5,1,2,3,4,5,1,2,3,4,5]
 temperature = [3,3,3,3,3,20,20,20,20,20,37,37,37,37,37]
-#experimental temperature values
+# experimental temperature values
 temp1 = 3
 temp2 = 20
 temp3 = 37
-#axis for plotting data using matplotlib
+# axis for plotting data using matplotlib
 x_axis = [1,2,3,4,5]
 y_error = []
-#take the averages and standard deviations of each column
+# take the averages and standard deviations of each column
 for column in denoised_data:
   eachColumn = denoised_data[column]
   mean_ys.append(eachColumn.mean())
   y_error.append(eachColumn.std())
-#remove first entry for mean and standard deviation (irrelevant - column numbers)
+# remove first entry for mean and standard deviation (irrelevant - column numbers)
 mean_ys.pop(0)
 y_error.pop(0)
 # graph 1 for 3°C
@@ -66,12 +66,18 @@ plt.xlabel('pH')
 plt.ylabel('Average RMSD (nm)')
 threeDax.set_zlabel('Temperature (\u00B0C)') 
 plt.show()
-#fit curve to data 
+# fit curve to data 
 popt, pcov = curve_fit(lambda t, a, b, c: a * np.exp(b * t) + c, temperature, mean_ys, p0=(-0.1, -0.01, 0.5), bounds=((-1, -np.inf, 0), (0, -0.000001, 1)), maxfev = 1000)
 a = float(popt[0])
 b = float(popt[1])
 c = float(popt[2])
-
+# create average RMSD points based on existing pH's and using new curve 
+curveFitRMSDValues = []
+for indpHValue in pH:
+  curveFitRMSDValues.append((a*np.exp(b * indpHValue) + c))
+# graph 6 use pH points and new points to create exponential curve
+plt.plot(pH, curveFitRMSDValues, marker = 'o')
+plt.show()
 
 
 # equation = 'y = ' + a + b + '^' + t + ' + ' + c
