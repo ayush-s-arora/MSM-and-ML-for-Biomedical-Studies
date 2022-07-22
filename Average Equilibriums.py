@@ -71,25 +71,28 @@ popt, pcov = curve_fit(lambda t, a, b, c: a * np.exp(b * t) + c, temperature, me
 a = float(popt[0])
 b = float(popt[1])
 c = float(popt[2])
-# create average RMSD points based on existing pH's and using new curve 
-curveFitRMSDValues = []
-for indpHValue in pH:
-  curveFitRMSDValues.append((a*np.exp(b * indpHValue) + c))
-# graph 6 use pH points and new points to create exponential curve
-plt.plot(pH, curveFitRMSDValues, marker = 'o')
-plt.show()
+print(a)
+print(b)
+print(c)
+# # create average RMSD points based on existing pH's and using new curve 
+# curveFitRMSDValues = []
+# for indpHValue in pH:
+#   curveFitRMSDValues.append((a*np.exp(b * indpHValue) + c))
+# # graph 6 use pH points and new points to create exponential curve
+# plt.scatter(pH, curveFitRMSDValues)
+# plt.show()
 
 
-# equation = 'y = ' + a + b + '^' + t + ' + ' + c
-# show curve
-# threeDax.plot3D(xline, yline, zline, 'gray')
+# # equation = 'y = ' + a + b + '^' + t + ' + ' + c
+# # show curve
+# # threeDax.plot3D(xline, yline, zline, 'gray')
 
-# def fitCurve(temp, , b, c):
-#   x,y = X
-#   return np.log(a) + b*np.log(x) + c*np.log(y)
-# x = np.linspace(pH)
-# y = np.linspace(mean_ys)
-# a, b, c = 10., 4., 6.
-# z = fitCurve((x,y), a, b, c) * 1 + np.random.random(101) / 100
-# p0 = 8., 2., 7.
-# print(curve_fit(fitCurve, (x,y), z, p0))
+# # def fitCurve(temp, , b, c):
+# #   x,y = X
+# #   return np.log(a) + b*np.log(x) + c*np.log(y)
+# # x = np.linspace(pH)
+# # y = np.linspace(mean_ys)
+# # a, b, c = 10., 4., 6.
+# # z = fitCurve((x,y), a, b, c) * 1 + np.random.random(101) / 100
+# # p0 = 8., 2., 7.
+# # print(curve_fit(fitCurve, (x,y), z, p0))
