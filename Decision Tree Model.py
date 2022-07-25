@@ -1,13 +1,9 @@
-import math
-import numpy as np
 import pandas as pd
-from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import accuracy_score
-from sklearn.metrics import classification_report
-from sklearn import preprocessing
-from sklearn import utils
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+from sklearn.tree import DecisionTreeRegressor
+from sklearn import metrics
 
 df = pd.read_csv('Data/rmsd-tph.csv')
 temps = [3, 20, 37]
@@ -55,76 +51,9 @@ for t in temps:
         else:
             x_train.extend(inputs)
             y_train.extend(outputs)
-# fix "ValueError: Unknown label type: 'continuous'"
-lab_enc = preprocessing.LabelEncoder()
-encodedx_train = lab_enc.fit_transform(x_train)
-encodedy_train = lab_enc.fit_transform(y_train)
-
-# Function to perform training with giniIndex.
-def train_using_gini(X_train, X_test, y_train):
-  
-    # Creating the classifier object
-    clf_gini = DecisionTreeClassifier(criterion = "gini",
-            random_state = 100,max_depth=3, min_samples_leaf=5)
-  
-    # Performing training
-    clf_gini.fit(encodedx_train, encodedy_train)
-    return clf_gini
-      
-# Function to perform training with entropy.
-def tarin_using_entropy(X_train, X_test, y_train):
-  
-    # Decision tree with entropy
-    clf_entropy = DecisionTreeClassifier(
-            criterion = "entropy", random_state = 100,
-            max_depth = 3, min_samples_leaf = 5)
-  
-    # Performing training
-    clf_entropy.fit(X_train, y_train)
-    return clf_entropy
-  
-  
-# Function to make predictions
-def prediction(X_test, clf_object):
-  
-    # Predicton on test with giniIndex
-    y_pred = clf_object.predict(X_test)
-    print("Predicted values:")
-    print(y_pred)
-    return y_pred
-      
-# Function to calculate accuracy
-def cal_accuracy(y_test, y_pred):
-      
-    print("Confusion Matrix: ",
-        confusion_matrix(y_test, y_pred))
-      
-    print ("Accuracy : ",
-    accuracy_score(y_test,y_pred)*100)
-      
-    print("Report : ",
-    classification_report(y_test, y_pred))
-  
-# Driver code
-def main():
-      
-    # Building Phase
-    clf_gini = train_using_gini(x_train, x_test, y_train)
-    clf_entropy = tarin_using_entropy(x_train, x_test, y_train)
-      
-    # Operational Phase
-    print("Results Using Gini Index:")
-      
-    # Prediction using gini
-    y_pred_gini = prediction(x_test, clf_gini)
-    cal_accuracy(y_test, y_pred_gini)
-      
-    print("Results Using Entropy:")
-    # Prediction using entropy
-    y_pred_entropy = prediction(x_test, clf_entropy)
-    cal_accuracy(y_test, y_pred_entropy)
-      
-      
-# Calling main function
-if __name__=="__main__":
-    main()
+regressor = DecisionTreeRegressor()
+regressor.fit(x_train, y_train)
+y_pred = regressor.predict(x_test)
+print('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
+print('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
+print('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
