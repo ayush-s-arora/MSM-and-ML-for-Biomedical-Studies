@@ -1,8 +1,7 @@
-from scipy import optimize
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-import math
+import pwlf
+import numpy as np
 
 def visualize_og_df_type(og_df, graph_title):
     temps = [3, 20, 37]
@@ -22,6 +21,8 @@ def visualize_og_df_type(og_df, graph_title):
                 rmsd.append(og_df.at[j, col_header])
                 time.append(og_df.at[j, "Time"])
             axis[i].plot(time, rmsd, label="pH" + str(p))
+            piecewise = pwlf.PiecewiseLinFit(time,rmsd)
+            piecewise.fit(30)
         axis[i].legend()
         axis[i].set_title(str(temps[i]) + " Celsius")
         axis[i].set_xlabel('Time (ns)')
@@ -30,6 +31,5 @@ def visualize_og_df_type(og_df, graph_title):
         #axis[i].set_yticks(np.arange(0, limits[i] + intervals[i], intervals[i]))
     plt.tight_layout()
     plt.show()
-
 df = pd.read_csv('Data/MASTER_SG_rmsd-tph.csv')
 visualize_og_df_type(df, 'visualization')
