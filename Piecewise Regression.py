@@ -4,55 +4,32 @@ import numpy as np
 import pandas as pd
 import math
 
-df = pd.read_csv('Data/rmsd-tph.csv')
-temps = [3, 20, 37]
-pHs = [1, 2, 3, 4, 5]
+def visualize_og_df_type(og_df, graph_title):
+    temps = [3, 20, 37]
+    pHs = [1, 2, 3, 4, 5, 7]
+    #limits = [0.7, 1.5, 1.5]
+    #intervals = [0.1, 0.25, 0.5]
 
-test_col = "t37-5"
+    figure, axis = plt.subplots(len(temps))
+    figure.suptitle(graph_title)
+    figure.set_figheight(10)
+    for i in range(len(temps)):
+        for p in pHs:
+            col_header = "t" + str(temps[i]) + "-" + str(p)
+            rmsd = []
+            time = []
+            for j in range(len(og_df[col_header])):
+                rmsd.append(og_df.at[j, col_header])
+                time.append(og_df.at[j, "Time"])
+            axis[i].plot(time, rmsd, label="pH" + str(p))
+        axis[i].legend()
+        axis[i].set_title(str(temps[i]) + " Celsius")
+        axis[i].set_xlabel('Time (ns)')
+        axis[i].set_ylabel('RMSD (nm)')
+        axis[i].set_ylim(bottom=0)
+        #axis[i].set_yticks(np.arange(0, limits[i] + intervals[i], intervals[i]))
+    plt.tight_layout()
+    plt.show()
 
-# Inputs are of the form [time, temp, pH]
-# Outputs are RMSD
-x_train = []
-y_train = []
-x_test = []
-y_test = []
-
-# Min and Max Vals for Scaling
-ti_min = 0.0
-ti_max = float(df.at[len(df)-1, "Time"])
-temp_min = 3
-temp_max = 37
-ph_min = 1
-ph_max = 5
-
-# Define minmax_scale
-def minmax_scale(val, min, max):
-    return (val - min) / (max - min)
-
-# Split dataframe into train, test, input, and output arrays
-# Total length of inputs and outputs: 148735
-for t in temps:
-    for p in pHs:
-        col_header = "t" + str(t) + "-" + str(p)
-        inputs = []
-        outputs = []
-        i = 0
-        while i < len(df) and not math.isnan(df.at[i, col_header]):
-            sct = minmax_scale(float(df.at[i, "Time"]), ti_min, ti_max)
-            sctemp = minmax_scale(t, temp_min, temp_max)
-            scph = minmax_scale(p, ph_min, ph_max)
-            inputs.append([sct, sctemp, scph])
-            outputs.append(df.at[i, col_header])
-            i += 1
-        if col_header == test_col:
-            x_test.extend(inputs)
-            y_test.extend(outputs)
-        else:
-            x_train.extend(inputs)
-            y_train.extend(outputs)
-def piecewise_linear(x, x0, y0, k1, k2):
-    return np.piecewise(x, [x < x0, x >= x0], [lambda x:k1*x + y0-k1*x0, lambda x:k2*x + y0-k2*x0])
-p , e = optimize.curve_fit(piecewise_linear, x_train, y_train)
-xd = np.linspace(0, 15, 100)
-plt.plot(x_train, y_train, "o")
-plt.plot(xd, piecewise_linear(xd, *p))
+df = pd.read_csv('Data/MASTER_SG_rmsd-tph.csv')
+visualize_og_df_type(df, 'visualization')
