@@ -29,25 +29,25 @@ def visualize_og_df_type(og_df, graph_title):
             for j in range(len(og_df[col_header])):
                 rmsd.append(og_df.at[j, col_header])
                 time.append(og_df.at[j, "Time"])
-                line, = axis[i].plot(time, rmsd, label="pH" + str(p))
-                color = line.get_color()
-            axis[i].legend()
-            # plot piecewise functions
+            axis[i].plot(time, rmsd, label="pH" + str(p))
             piecewise = pwlf.PiecewiseLinFit(time,rmsd)
             piecewise.fit(3)
-            axis[i].plot(time, piecewise.predict(time), label='_nolegend_' + str(p), color=color, linestyle = '--')
+            # plot piecewise functions
+            axis[i].plot(time, piecewise.predict(time), label='_nolegend_' + str(p), color = "black", linewidth = 0.5)
+            # show piecewise functions and endpoints in output
+            for s in range(piecewise.n_segments):
+                eqn_list.append(get_symbolic_eqn(piecewise, s + 1))
+                print('Equation number: ', s + 1)
+                print(eqn_list[-1])
+                print('Corresponding Endpoints: ', piecewise.fit_breaks)
+                f_list.append(lambdify(x, eqn_list[-1]))
+        axis[i].legend()
         # plot formatting
         axis[i].set_title(str(temps[i]) + " Celsius")
         axis[i].set_xlabel('Time (ns)')
         axis[i].set_ylabel('RMSD (nm)')
         axis[i].set_ylim(bottom=0)
         #axis[i].set_yticks(np.arange(0, limits[i] + intervals[i], intervals[i]))
-    # show piecewise functions in output
-    for i in range(piecewise.n_segments):
-        eqn_list.append(get_symbolic_eqn(piecewise, i + 1))
-        print('Equation number: ', i + 1)
-        print(eqn_list[-1])
-        f_list.append(lambdify(x, eqn_list[-1]))
     plt.tight_layout()
     plt.show()
 
@@ -76,4 +76,4 @@ df = pd.read_csv('Data/MASTER_SG_rmsd-tph.csv')
 # remove null values
 df = df.dropna(axis=0)
 # visualize data and piecewise functions
-visualize_og_df_type(df, 'visualization')
+visualize_og_df_type(df, 'New SG Denoised Data')
