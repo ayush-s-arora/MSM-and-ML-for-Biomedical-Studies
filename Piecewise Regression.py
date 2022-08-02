@@ -5,7 +5,7 @@ import numpy as np
 from sympy import Symbol
 from sympy.utilities import lambdify
 
-# create x symbol for printing functions on both graph and in output
+# create x symbol for printing functions in output
 x = Symbol('x')
 
 # visualization of data, including piecewise functions
@@ -42,13 +42,11 @@ def visualize_og_df_type(og_df, graph_title):
         axis[i].set_ylabel('RMSD (nm)')
         axis[i].set_ylim(bottom=0)
         #axis[i].set_yticks(np.arange(0, limits[i] + intervals[i], intervals[i]))
-    # show piecewise functions in output and in graphs
+    # show piecewise functions in output
     for i in range(piecewise.n_segments):
         eqn_list.append(get_symbolic_eqn(piecewise, i + 1))
         print('Equation number: ', i + 1)
         print(eqn_list[-1])
-        plt.text('Equation number: ', i + 1)
-        plt.text(eqn_list[-1])
         f_list.append(lambdify(x, eqn_list[-1]))
     plt.tight_layout()
     plt.show()
