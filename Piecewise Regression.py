@@ -33,7 +33,7 @@ def visualize_og_df_type(og_df, graph_title):
             piecewise = pwlf.PiecewiseLinFit(time,rmsd)
             piecewise.fit(3)
             # plot piecewise functions
-            axis[i].plot(time, piecewise.predict(time), label='_nolegend_' + str(p), color = "black", linewidth = 0.5)
+            axis[i].plot(time, piecewise.predict(time), label='_nolegend_' + str(p), color = "black", linewidth = 1)
             # show piecewise functions and endpoints in output
             for s in range(piecewise.n_segments):
                 eqn_list.append(get_symbolic_eqn(piecewise, s + 1))
