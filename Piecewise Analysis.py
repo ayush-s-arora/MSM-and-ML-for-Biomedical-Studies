@@ -184,7 +184,6 @@
 # #             Corresponding Endpoints:  [  0.         501.14847268 909.72701689 987.5       ]
 # plot showing all equations from x = 0 to x = 550, not following defined endpoints
 
-from pickletools import int4
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
@@ -325,11 +324,11 @@ import numpy as np
 # ax1.set_title('pH 1')
 # ax1.scatter([temps], [pH1Slopes], c = 'r')
 # ax1.set_xlabel('Temperature (\u00b0C)')
-# ax1.set_ylabel('RMSD (nm)')
-# curvepH1 = np.poly1d(np.polyfit(temps, pH1Slopes, 37))
+# ax1.set_ylabel('Slope')
+# # curvepH1 = np.poly1d(np.polyfit(temps, pH1Slopes, 37))
 # # ax1.text(0.1, 0.5, curvepH1, horizontalalignment='center', verticalalignment='center', transform=ax1.transAxes, size = 2)
 # # print(curvepH1)
-# ax1.plot(curvepH1, c = 'black')
+# # ax1.plot(curvepH1, c = 'black')
 # # pH 2 Subplot
 # pH2Slopes = np.empty(0)
 # pH2Slopes = np.append(pH2Slopes, slopes[3:6])
@@ -338,9 +337,9 @@ import numpy as np
 # ax2.set_title('pH 2')
 # ax2.scatter([temps], [pH2Slopes], c = 'orange')
 # ax2.set_xlabel('Temperature (\u00b0C)')
-# ax2.set_ylabel('RMSD (nm)')
-# curvepH2 = np.poly1d(np.polyfit(temps, pH2Slopes, 37))
-# ax2.plot(curvepH2, c = 'black')
+# ax2.set_ylabel('Slope')
+# # curvepH2 = np.poly1d(np.polyfit(temps, pH2Slopes, 37))
+# # ax2.plot(curvepH2, c = 'black')
 # # pH 3 Subplot
 # pH3Slopes = np.empty(0)
 # pH3Slopes = np.append(pH3Slopes, slopes[6:9])
@@ -349,9 +348,9 @@ import numpy as np
 # ax3.set_title('pH 3')
 # ax3.scatter([temps], [pH3Slopes], c = 'y')
 # ax3.set_xlabel('Temperature (\u00b0C)')
-# ax3.set_ylabel('RMSD (nm)')
-# curvepH3 = np.poly1d(np.polyfit(temps, pH3Slopes, 37))
-# ax3.plot(curvepH3, c = 'black')
+# ax3.set_ylabel('Slope')
+# # curvepH3 = np.poly1d(np.polyfit(temps, pH3Slopes, 37))
+# # ax3.plot(curvepH3, c = 'black')
 # # pH 4 Subplot
 # pH4Slopes = np.empty(0)
 # pH4Slopes = np.append(pH4Slopes, slopes[9:12])
@@ -360,9 +359,9 @@ import numpy as np
 # ax4.set_title('pH 4')
 # ax4.scatter([temps], [pH4Slopes], c = 'g')
 # ax4.set_xlabel('Temperature (\u00b0C)')
-# ax4.set_ylabel('RMSD (nm)')
-# curvepH4 = np.poly1d(np.polyfit(temps, pH4Slopes, 37))
-# ax4.plot(curvepH4, c = 'black')
+# ax4.set_ylabel('Slope')
+# # curvepH4 = np.poly1d(np.polyfit(temps, pH4Slopes, 37))
+# # ax4.plot(curvepH4, c = 'black')
 # # pH 5 Subplot
 # pH5Slopes = np.empty(0)
 # pH5Slopes = np.append(pH5Slopes, slopes[12:15])
@@ -371,9 +370,9 @@ import numpy as np
 # ax5.set_title('pH 5')
 # ax5.scatter([temps], [pH5Slopes], c = 'b')
 # ax5.set_xlabel('Temperature (\u00b0C)')
-# ax5.set_ylabel('RMSD (nm)')
-# curvepH5 = np.poly1d(np.polyfit(temps, pH5Slopes, 37))
-# ax5.plot(curvepH5, c = 'black')
+# ax5.set_ylabel('Slope')
+# # curvepH5 = np.poly1d(np.polyfit(temps, pH5Slopes, 37))
+# # ax5.plot(curvepH5, c = 'black')
 # # pH 7 Subplot
 # pH7Slopes = np.empty(0)
 # pH7Slopes = np.append(pH7Slopes, slopes[15:18])
@@ -382,9 +381,9 @@ import numpy as np
 # ax7.set_title('pH 7')
 # ax7.scatter([temps], [pH7Slopes], c = 'indigo')
 # ax7.set_xlabel('Temperature (\u00b0C)')
-# ax7.set_ylabel('RMSD (nm)')
-# curvepH7 = np.poly1d(np.polyfit(temps, pH7Slopes, 37))
-# ax7.plot(curvepH7, c = 'black')
+# ax7.set_ylabel('Slope')
+# # curvepH7 = np.poly1d(np.polyfit(temps, pH7Slopes, 37))
+# # ax7.plot(curvepH7, c = 'black')
 # plt.show()
 
 # # Graph 2 - Each subplot is a constant temperature, each subplot contains pHs on the X-axis and slope points on the Y-axis
@@ -396,34 +395,34 @@ import numpy as np
 # temp3.set_title('3\u00b0 Celsius')
 # temp3.scatter([pHs], [temp3Slopes], c = 'red')
 # temp3.set_xlabel('pH')
-# temp3.set_ylabel('RMSD (nm)')
-# curvetemp3 = np.poly1d(np.polyfit(pHs, temp3Slopes, 7))
-# temp3.plot(curvetemp3, c = 'black')
+# temp3.set_ylabel('Slope')
+# # curvetemp3 = np.poly1d(np.polyfit(pHs, temp3Slopes, 7))
+# # temp3.plot(curvetemp3, c = 'black')
 # # 20 Celsius Subplot
 # temp20Slopes = np.empty(0)
 # temp20Slopes = np.append(temp20Slopes, slopes[18:36])
 # temp20.set_title('20\u00b0 Celsius')
 # temp20.scatter([pHs], [temp20Slopes], c = 'green')
 # temp20.set_xlabel('pH')
-# temp20.set_ylabel('RMSD (nm)')
-# curvetemp20 = np.poly1d(np.polyfit(pHs, temp20Slopes, 7))
-# temp20.plot(curvetemp20, c = 'black')
+# temp20.set_ylabel('Slope')
+# # curvetemp20 = np.poly1d(np.polyfit(pHs, temp20Slopes, 7))
+# # temp20.plot(curvetemp20, c = 'black')
 # # 37 Celsius Subplot
 # temp37Slopes = np.empty(0)
 # temp37Slopes = np.append(temp37Slopes, slopes[36:54])
 # temp37.set_title('37\u00b0 Celsius')
 # temp37.scatter([pHs], [temp37Slopes], c = 'blue')
 # temp37.set_xlabel('pH')
-# temp37.set_ylabel('RMSD (nm)')
-# curvetemp37 = np.poly1d(np.polyfit(pHs, temp37Slopes, 7))
-# temp37.plot(curvetemp37, c = 'black')
+# temp37.set_ylabel('Slope')
+# # curvetemp37 = np.poly1d(np.polyfit(pHs, temp37Slopes, 7))
+# # temp37.plot(curvetemp37, c = 'black')
 # plt.show()
 
 # Graph 3 - Comparison of Piecewise Segments at Constant Temperatures
-# from scipy.optimize import curve_fit
-# # Exponential fitting function definition
-# def func(x, a, b):
-#     return a*np.exp(b*x)
+from scipy.optimize import curve_fit
+# Exponential fitting function definition
+def func(x, a, b):
+    return a*np.exp(b*x)
 fig, ((l1t3, l1t20, l1t37), (l2t3, l2t20, l2t37), (l3t3, l3t20, l3t37)) = plt.subplots(3, 3)
 slopes = [0.000853530199166774, (8.52928450718914*(10**-5)), -0.000296932601704575, 0.0752958863538189, 0.000492759180432067, (1.41187575949768*(10**-5)), 0.062560769090003, 0.00132037564343111, (2.26705881367466*(10**-5)), 0.00473394157077951, 0.000248662675568798, (5.02438543312843*(10**-5)), 0.000798432466650845, 0.000130966011923322, (5.25384992967079*(10**-6)), 0.00545197634762841, 0.000173799013138515, (9.19149097124427*(10**-6)), 0.0956299482012649, 0.000209537130348797, -(4.11887793598624*(10**-5)), 0.000422504331995571, -(8.50845395201768*(10**-5)), (7.47444003156142*(10**-5)), 0.00116391571468659, -0.000114482640953276, (3.24070938389887*(10**-5)), 0.0173647480083924, 0.000346672800090757, (2.92174616361089*(10**-5)), 0.00444417886916033, 0.000285862970991852, (4.21711758730446*(10**-5)), 0.00727309858736848, 0.00027591562380227, 0.000101340791782341, 0.00148308753696875, 0.00011923715355055, -(1.55460164195807*(10**-6)), 0.00728047029652998, 0.000158076743318985, -0.000103600487385182, 0.000744757152577369, 0.000132229499972555, -(3.42636865671021*(10**-5)), 0.0708762214888504, 0.00101461063426513, (7.55825923702547*(10**-5)), 0.00603025641658366, 0.000490408979935793, (8.71155295754046*(10**-5)), 0.000233127398363986, 0.000338058541196367, -0.000677715642751363]
 pHs = [1, 2, 3, 4, 5, 7]
@@ -451,22 +450,22 @@ line1Slopes = np.append(line1Slopes, slopes[51])
 l1t3.set_title('Line 1 at 3\u00b0 Celsius')
 l1t3.scatter([pHs], [line1Slopes[0:6]], c = 'r')
 l1t3.set_xlabel('pH')
-l1t3.set_ylabel('RMSD (nm)')
+l1t3.set_ylabel('Slope')
 # Curve Fit
-# xFit = np.arange(0.0, 0.005, 0.01)
-# popt, pcov = curve_fit(func, pHs, line1Slopes[0:6])
-# print(popt)
-# l1t3.plot(xFit, func(xFit, *popt), c = 'black')
+xFit = np.arange(0.0, 0.005, 0.01)
+popt, pcov = curve_fit(func, pHs, line1Slopes[0:6])
+print(popt)
+l1t3.plot(xFit, func(xFit, *popt), c = 'black')
 # Line 1, Temperature 20 Celsius Subplot
 l1t20.set_title('Line 1 at 20\u00b0 Celsius')
 l1t20.scatter([pHs], [line1Slopes[6:12]], c = 'g')
 l1t20.set_xlabel('pH')
-l1t20.set_ylabel('RMSD (nm)')
+l1t20.set_ylabel('Slope')
 # Line 1, Temperature 37 Celsius Subplot
 l1t37.set_title('Line 1 at 37\u00b0 Celsius')
 l1t37.scatter([pHs], [line1Slopes[12:18]], c = 'b')
 l1t37.set_xlabel('pH')
-l1t37.set_ylabel('RMSD (nm)')
+l1t37.set_ylabel('Slope')
 # Array with only the line 2 slopes
 line2Slopes = np.empty(0)
 line2Slopes = np.append(line2Slopes, slopes[1])
@@ -491,17 +490,17 @@ line2Slopes = np.append(line2Slopes, slopes[52])
 l2t3.set_title('Line 2 at 3\u00b0 Celsius')
 l2t3.scatter([pHs], [line2Slopes[0:6]], c = 'r')
 l2t3.set_xlabel('pH')
-l2t3.set_ylabel('RMSD (nm)')
+l2t3.set_ylabel('Slope')
 # Line 2, Temperature 20 Celsius Subplot
 l2t20.set_title('Line 2 at 20\u00b0 Celsius')
 l2t20.scatter([pHs], [line2Slopes[6:12]], c = 'g')
 l2t20.set_xlabel('pH')
-l2t20.set_ylabel('RMSD (nm)')
+l2t20.set_ylabel('Slope')
 # Line 2, Temperature 37 Celsius Subplot
 l2t37.set_title('Line 2 at 37\u00b0 Celsius')
 l2t37.scatter([pHs], [line2Slopes[12:18]], c = 'b')
 l2t37.set_xlabel('pH')
-l2t37.set_ylabel('RMSD (nm)')
+l2t37.set_ylabel('Slope')
 # Array with only the line 3 slopes
 line3Slopes = np.empty(0)
 line3Slopes = np.append(line3Slopes, slopes[2])
@@ -526,15 +525,15 @@ line3Slopes = np.append(line3Slopes, slopes[53])
 l3t3.set_title('Line 3 at 3\u00b0 Celsius')
 l3t3.scatter([pHs], [line3Slopes[0:6]], c = 'r')
 l3t3.set_xlabel('pH')
-l3t3.set_ylabel('RMSD (nm)')
+l3t3.set_ylabel('Slope')
 # Line 3, Temperature 20 Celsius Subplot
 l3t20.set_title('Line 3 at 20\u00b0 Celsius')
 l3t20.scatter([pHs], [line3Slopes[6:12]], c = 'g')
 l3t20.set_xlabel('pH')
-l3t20.set_ylabel('RMSD (nm)')
+l3t20.set_ylabel('Slope')
 # Line 3, Temperature 37 Celsius Subplot
 l3t37.set_title('Line 3 at 37\u00b0 Celsius')
 l3t37.scatter([pHs], [line3Slopes[12:18]], c = 'b')
 l3t37.set_xlabel('pH')
-l3t37.set_ylabel('RMSD (nm)')
+l3t37.set_ylabel('Slope')
 plt.show()
