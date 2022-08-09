@@ -120,3 +120,4 @@ def source1df():
 
     # DATA JUMPS FROM 200-600
     # Sorting method is faulty
+    return df
