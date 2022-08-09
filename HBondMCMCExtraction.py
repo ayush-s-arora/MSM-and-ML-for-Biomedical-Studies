@@ -3,6 +3,7 @@ def source1df():
     import pandas as pd
     import numpy as np
     import os
+    import math
 
     folder_path = 'Data/dl'
     temps = ['t3', 't20', 't37']
@@ -42,10 +43,10 @@ def source1df():
                                 nums = []
                                 for i in range(len(vals)):
                                     if i == 0:
-                                        if '.500' in vals[i]:
-                                            nums.append(round(float(vals[i]) + 0.001,0))
+                                        if '.050' in vals[i]:
+                                            nums.append(round(float(vals[i]) + 0.0001,1))
                                         else:
-                                            nums.append(round(float(vals[i]),0))
+                                            nums.append(round(float(vals[i]),1))
                                     else:
                                         nums.append(float(vals[i]))
                                 cur_file_data.append(nums)
@@ -88,7 +89,7 @@ def source1df():
                         # Remove redundant time stamps
                         while len(cur_file_data) > 0 and cur_file_data[0][0] <= last_timestamp:
                             removed = cur_file_data.pop(0)
-                        if (cur_file_data[0][0] - last_timestamp) != 1:
+                        if not math.isclose(cur_file_data[0][0] - last_timestamp, 0.1):
                             print("Error: " + cur_column)
                             print(cur_file_data[0][0])
                             print(last_timestamp)
