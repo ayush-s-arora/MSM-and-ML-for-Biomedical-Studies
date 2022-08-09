@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import os
+import math
 from HBondMCMCExtraction import source1df
 
 folder_path = 'Data/Temperature-Based'
@@ -9,6 +10,8 @@ phs = ['1', '2', '3', '4', '5', '1', '3', '4', '5', '1', '2', '3', '4', '5']
 metric = 'hbond'
 exclude = 'p-w'
 exclude2 = 'side'
+# Call extracted data from source 1
+source1df = source1df()
 
 all_data = []
 all_colnames = []
@@ -36,13 +39,13 @@ for t in temps:
                         vals = line.split()
                         nums = []
                         for i in range(len(vals)):
-                            if i == 0:
-                                if '.500' in vals[i]:
-                                    nums.append(round(float(vals[i]) + 0.001,0))
+                                if i == 0:
+                                    if '.050' in vals[i]:
+                                        nums.append(round(float(vals[i]) + 0.0001,1))
+                                    else:
+                                        nums.append(round(float(vals[i]),1))
                                 else:
-                                    nums.append(round(float(vals[i]),0))
-                            else:
-                                nums.append(float(vals[i]))
+                                    nums.append(float(vals[i]))
                         cur_file_data.append(nums)
                 all_file_data.append(cur_file_data)
             
@@ -83,7 +86,7 @@ for t in temps:
                 # Remove redundant time stamps
                 while len(cur_file_data) > 0 and cur_file_data[0][0] <= last_timestamp:
                     removed = cur_file_data.pop(0)
-                if (cur_file_data[0][0] - last_timestamp) != 1:
+                if not math.isclose(cur_file_data[0][0] - last_timestamp, 0.1):
                     print("Error: " + cur_column)
                     print(cur_file_data[0][0])
                     print(last_timestamp)
@@ -116,9 +119,19 @@ for i in range(len(all_data)):
 # DATA JUMPS FROM 200-600
 # Sorting method is faulty
 
-# Call extracted data from source 1
-source1df = source1df()
-# Merge extracted data from source 1 and source 2
-df_merged = pd.concat([source1df, df], ignore_index = True, sort = False)
-# Export merged and extracted data to CSV file
+# Determine which dataframe has more times and append the dataframes based on time column size (greater column size appended first)
+# Source 2 has more times than source 1
+if len(df["Time"]) > len(source1df["Time"]):
+    # Drop the time column of source 1
+    source1df.drop('Time', inplace = True, axis = 1)
+    # Merge extracted data from source 1 and source 2 so that source 2's data is first, including its time values
+    df_merged = pd.concat([df, source1df], axis = 1)
+# Source 1 has more times than source 2    
+else:
+    # Drop the time column of source 2
+    df.drop('Time', inplace = True, axis = 1)
+    # Merge extracted data from source 1 and source 2 so that source 1's data is first, including its time values
+    df_merged = pd.concat([source1df, df], axis = 1)
+
+# Export extracted and merged data to CSV file
 df_merged.to_csv('Data/H-Bond MC-MC/hbondmc-mctph.csv')
