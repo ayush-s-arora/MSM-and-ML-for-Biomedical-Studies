@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import os
+from HBondMCMCExtraction import source1df
 
 folder_path = 'Data/Temperature-Based'
 temps = ['t3', 't3', 't3', 't3', 't3', 't20', 't20', 't20', 't20', 't37', 't37', 't37', 't37', 't37']
@@ -114,3 +115,10 @@ for i in range(len(all_data)):
 
 # DATA JUMPS FROM 200-600
 # Sorting method is faulty
+
+# Call extracted data from source 1
+source1df = source1df()
+# Merge extracted data from source 1 and source 2
+df_merged = pd.concat([source1df, df], ignore_index = True, sort = False)
+# Export merged and extracted data to CSV file
+df.to_csv('Data/H-Bond MC-MC/hbondmc-mctph.csv')
