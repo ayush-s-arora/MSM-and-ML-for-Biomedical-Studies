@@ -121,4 +121,4 @@ source1df = source1df()
 # Merge extracted data from source 1 and source 2
 df_merged = pd.concat([source1df, df], ignore_index = True, sort = False)
 # Export merged and extracted data to CSV file
-df.to_csv('Data/H-Bond MC-MC/hbondmc-mctph.csv')
+df_merged.to_csv('Data/H-Bond MC-MC/hbondmc-mctph.csv')
