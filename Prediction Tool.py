@@ -20,19 +20,15 @@ def structureSelection():
     if(structure == '1'):
         structureSelection.structure = 'RMSD'
         print(structureSelection.structure + ' selected!')
-        return structureSelection.structure
     elif(structure == '2'):
-        structure = 'MC-MC H-Bond'
+        structureSelection.structure = 'MC-MC H-Bond'
         print(structureSelection.structure + ' selected!')
-        return structureSelection.structure      
     elif(structure == '3'):
-        structure = 'P-W H-Bond'
+        structureSelection.structure = 'P-W H-Bond'
         print(structureSelection.structure + ' selected!')
-        return structureSelection.structure
     elif(structure == '4'):
-        structure = 'SASA'
+        structureSelection.structure = 'SASA'
         print(structureSelection.structure + 'elected!')
-        return structureSelection.structure
     else:
         print('Invalid selection. Please try again.')
         structureSelection()
@@ -66,7 +62,10 @@ def dataTemperature():
 def dataStructure():
     yesnostructure = input('Do you have a value corresponding to the ' + structureSelection.structure + '? (Y/N)\n')
     if(yesnostructure.casefold() == 'y'):
-        dataStructure.structureValue = input('Please enter the corresponding value in nm or nm^2.\n')
+        if(structureSelection.structure == 'RMSD'):
+            dataStructure.structureValue = input('Please enter the corresponding value in nm.\n')
+        else:
+            dataStructure.structureValue = input('Please enter the corresponding value in nm^2.\n')
         if(not dataStructure.structureValue.isdigit()):
             print('Invalid structure value!')
             dataStructure()
@@ -82,6 +81,16 @@ def data():
     datapH()
     dataTemperature()
     dataStructure()
-
+    if((datapH.pH == 'None' and dataTemperature.temperature == 'None') or (datapH.pH == 'None' and dataStructure.structureValue == 'None') or (dataTemperature.temperature == 'None' and dataStructure.structureValue == 'None')):
+        print("\n\nERROR: At least 2 attributes are required for prediction.")
+        exit
+    else:
+        print('\n\nSummary of Data:')
+        print('pH: ' + datapH.pH)
+        print('Temperature: ' + dataTemperature.temperature + '\u00B0C')
+        if(structureSelection.structure == 'RMSD'):
+            print(structureSelection.structure + ': ' + dataStructure.structureValue + ' nm')
+        else:
+            print(structureSelection.structure + ': ' + dataStructure.structureValue + ' nm^2')
 structureSelection()
 data()
