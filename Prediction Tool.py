@@ -1,20 +1,4 @@
 import math
-# def typeConfirmation():
-#     if(type == 1 ):
-#         print('RMSD selected!')
-#         data()
-#     elif(type == 2):
-#         print('MC-MC H-Bond selected!')
-#         data()
-#     elif(type == 3):
-#         print('P-W H-Bond selected!')
-#         data()
-#     elif(type == 4):
-#         print('SASA selected!')
-#         data()
-#     else:
-#         print('Invalid selection. Please try again.')
-#         structureSelection()
 def structureSelection():
     structure = input('Select the type using the corresponding number: \nRMSD (1) \nMC-MC H-Bond (2) \nP-W H-Bond (3) \nSASA (4)\n')
     if(structure == '1'):
@@ -28,7 +12,7 @@ def structureSelection():
         print(structureSelection.structure + ' selected!')
     elif(structure == '4'):
         structureSelection.structure = 'SASA'
-        print(structureSelection.structure + 'elected!')
+        print(structureSelection.structure + ' selected!')
     else:
         print('Invalid selection. Please try again.')
         structureSelection()
