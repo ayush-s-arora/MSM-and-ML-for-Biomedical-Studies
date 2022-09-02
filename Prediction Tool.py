@@ -92,5 +92,8 @@ def data():
             print(structureSelection.structure + ': ' + dataStructure.structureValue + ' nm')
         else:
             print(structureSelection.structure + ': ' + dataStructure.structureValue + ' nm^2')
+def prediction():
+    print('\n\nPrediction function: Work in progress. This function will take the listed attributes and predict whether the spike protein denatures or not and the values of missing attributes, if there are any.')
 structureSelection()
 data()
+prediction()
